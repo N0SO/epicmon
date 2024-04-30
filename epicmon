@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+import os.path
+import sys
+import argparse
+whereami = os.path.split( os.path.realpath(__file__) )
+pathsplit = os.path.split(whereami[0])
+#print("here I am :", whereami, pathsplit)
+
+DEVMODPATH = [pathsplit[0],'/home/mike/Projects']
+#print('Using DEVMODPATH=',DEVMODPATH)
+#os.chdir(pathsplit[0])
+
+for mypath in DEVMODPATH:
+        if ( os.path.exists(mypath) and \
+          (os.path.isfile(mypath) == False) ):
+            sys.path.insert(0, mypath)
+
+from epicmon.__init__ import VERSION, DEFAULTDEVICE
+from epicmon.epicmon import epicMon
+from datetime import datetime
+
+USAGE = \
+"""
+epicmon
+"""
+
+DESCRIPTION = \
+"""
+epicmon - A utility to monitor and display status of a West Mountain Radio Epic Power Gate.
+"""
+
+EPILOG = \
+"""
+That is all!
+"""
+
+def parseMyArgs():
+    parser = argparse.ArgumentParser(\
+                    description = DESCRIPTION, usage = USAGE)
+    parser.add_argument('-v', '--version', 
+                        action='version', 
+                        version = VERSION)
+
+    parser.add_argument('-d', '--deviceName',
+                                   default = '/dev/ttyACM0',
+            help="""Use deviceName as serial input device.
+                    default is {}""".format(DEFAULTDEVICE))
+
+    parser.add_argument('-t', '--epicMonTerm',
+                    default =  None,
+            help="""Display raw status N lines of output from 
+                    the Epic PowerGate and quit. Entering a value
+                    of 0 will cause the stream to run indefinately.
+                    """)
+
+    parser.add_argument('-V', '--epicVersion',
+                    default =  False,
+                    action = 'store_true',
+            help="""Read and report the Epic PowerGate verison.""")
+
+    args = parser.parse_args()
+    return args
+
+if __name__ == '__main__':
+    args = parseMyArgs()
+    if args.deviceName:
+        pgate = epicMon(args.deviceName)
+    if pgate:
+        if args.epicVersion:
+            print(pgate.getEpicVersion())
+        elif args.epicMonTerm:
+            pgate.epicMonTerm(args.epicMonTerm)
+
