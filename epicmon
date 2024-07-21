@@ -67,7 +67,8 @@ if __name__ == '__main__':
         pgate = epicMon(args.deviceName)
     if pgate:
         if args.epicVersion:
-            print(pgate.getEpicVersion())
+            for s in (pgate.getEpicVersion()):
+                print(s)
         elif args.epicMonTerm:
             pgate.epicMonTerm(args.epicMonTerm)
 
