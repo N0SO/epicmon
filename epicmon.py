@@ -38,6 +38,13 @@ class epicMon():
                    status.append(st)
         return status
 
+    def get_status(self, loops=10):
+        retBuf = []
+        self.serialCon.write(b'\n')
+        for i in range(loops):
+            retBuf.append(self.readPort())
+        return retBuf
+
     def epicMonTerm(self, loops=None):
         self.serialCon.write(b'\n')
         if loops != '0':
@@ -46,3 +53,4 @@ class epicMon():
         else:
             while 1:
                print(self.readPort())
+
