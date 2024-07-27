@@ -14,9 +14,15 @@ Update History:
 -          more readable format.  The epicsererhttp
 -          module was also updated to use the new
 -          class. We're getting close to a release.
-
+* Sat Jul 27 2024 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.4 - Updated the status parsing method to use
+-          fixed character positions for the status
+-          parts (voltage, current, etc.) Works much
+-          better and the powergate appears to put 
+-          them in the same columns each time. More
+-          testing needed.
 """
-VERSION = '0.0.2'
+VERSION = '0.0.4'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

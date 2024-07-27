@@ -61,12 +61,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     <hr>""".format(CALLSIGN, datetime.now())
         #for l in dataList:
         htdoc += '<p>{}<br>{}</p>'.format(dataList.deviceStg, dataList.configStg)
-        htdoc += """<p>Power Source Voltage: {}<br>
+        htdoc += """<p>Power Source Voltage: {} V<br>
                        Charge Status: {}<br>
-                       Battery Voltage: {}<br>
-                       Current: {}<br>
-                       Solar Volts: {}<br>
-                       Powergate Temperature: {}
+                       Battery Voltage: {} V<br>
+                       Current: {} A<br>
+                       Solar Volts: {} V<br>
+                       Powergate Temperature: {} F
                  </p>""".format(dataList.psVolts,
                                 dataList.battState,
                                 dataList.battVolts,

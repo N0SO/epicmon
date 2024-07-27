@@ -23,13 +23,13 @@ class epicData():
     def parseGdata(self, gdata):
         self.deviceStg = gdata[2]
         self.configStg = gdata[3]
-        statParts = gdata[8].split(' ')
-        self.battState = statParts[1]
-        self.battVolts = self.stripData(statParts[5])
-        self.battAmps = self.stripData(statParts[7])
-        self.psVolts = self.stripData(statParts[4])
-        self.solarVolts = self.stripData(statParts[10])
-        self.pgateTemp = self.stripData(statParts[15])
+        statParts = gdata[8]
+        self.battState = statParts[0:10]
+        self.battVolts = self.stripData(statParts[21:31])
+        self.battAmps = self.stripData(statParts[32:40])
+        self.psVolts = self.stripData(statParts[11:20])
+        self.solarVolts = self.stripData(statParts[41:53])
+        self.pgateTemp = self.stripData(statParts[63:71])
         return True
 
     def stripData(self, strData):
@@ -48,18 +48,24 @@ class epicData():
 Device ID:{}
 Config string: {}
 Charge Status: {}
-Power Source Voltage: {}
-Battery Voltage: {}
-Current: {}
-Solar Voltage: {}
-Powergate Temperature: {}""".format(self.deviceStg,
-                                    self.configStg,
-                                    self.battState,
-                                    self.psVolts,
-                                    self.battVolts,
-                                    self.battAmps,
-                                    self.solarVolts,
-                                    self.pgateTemp))
+Power Source Voltage: {} V
+Battery Voltage: {} V
+Current: {} A
+Solar Voltage: {} V
+Powergate Temperature: {} F
+
+Raw Data:
+{}
+{}""".format(self.deviceStg,
+             self.configStg,
+             self.battState,
+             self.psVolts,
+             self.battVolts,
+             self.battAmps,
+             self.solarVolts,
+             self.pgateTemp,
+             self.rawStatus[8],
+             self.rawStatus[9]))
 
 
 class epicMon():
