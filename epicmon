@@ -46,6 +46,11 @@ def parseMyArgs():
             help="""Use deviceName as serial input device.
                     default is {}""".format(DEFAULTDEVICE))
 
+    parser.add_argument('-s', '--epicStatus',
+                    default =  False,
+                    action = 'store_true',
+            help="""Display status in a more human readable format.""")
+
     parser.add_argument('-t', '--epicMonTerm',
                     default =  None,
             help="""Display raw status N lines of output from 
@@ -71,4 +76,6 @@ if __name__ == '__main__':
                 print(s)
         elif args.epicMonTerm:
             pgate.epicMonTerm(args.epicMonTerm)
+        elif args.epicStatus:
+            pgate.showStatus()
 

@@ -3,6 +3,65 @@ from serial import Serial
 from epicmon.__init__ import VERSION
 from datetime import datetime
 
+
+class epicData():
+    def __init__(self, gdata=None):
+        if gdata:
+            self.parseGdata(gdata)
+        else:
+            self.deviceStg = None
+            self.configStg = None
+            self.battState = None
+            self.battVolts = None
+            self.battAmps = None
+            self.psVolts = None
+            self.solarVolts = None
+            self.pgateTemp = None
+
+        self.rawStatus =  gdata
+
+    def parseGdata(self, gdata):
+        self.deviceStg = gdata[2]
+        self.configStg = gdata[3]
+        statParts = gdata[8].split(' ')
+        self.battState = statParts[1]
+        self.battVolts = self.stripData(statParts[5])
+        self.battAmps = self.stripData(statParts[7])
+        self.psVolts = self.stripData(statParts[4])
+        self.solarVolts = self.stripData(statParts[10])
+        self.pgateTemp = self.stripData(statParts[15])
+        return True
+
+    def stripData(self, strData):
+        temp=''.join(i for i in strData if self.isdigit(i))
+        return temp
+
+    def isdigit(self, c):
+        if c in('0123456789.'):
+            return True
+        else:
+            return False
+
+
+    def showValues(self):
+        print("""
+Device ID:{}
+Config string: {}
+Charge Status: {}
+Power Source Voltage: {}
+Battery Voltage: {}
+Current: {}
+Solar Voltage: {}
+Powergate Temperature: {}""".format(self.deviceStg,
+                                    self.configStg,
+                                    self.battState,
+                                    self.psVolts,
+                                    self.battVolts,
+                                    self.battAmps,
+                                    self.solarVolts,
+                                    self.pgateTemp))
+
+
 class epicMon():
     def __init__(self, devicename = None):
         self.deviceName = devicename
@@ -53,4 +112,9 @@ class epicMon():
         else:
             while 1:
                print(self.readPort())
+
+    def showStatus(self):
+        gdata = epicData(self.get_status())
+        gdata.showValues()
+
 
