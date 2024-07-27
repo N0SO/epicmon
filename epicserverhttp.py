@@ -17,18 +17,18 @@ for mypath in DEVMODPATH:
           (os.path.isfile(mypath) == False) ):
             sys.path.insert(0, mypath)
 
-from epicmon.__init__ import VERSION, DEFAULTDEVICE
-from epicmon.epicmon import epicMon
+from epicmon.__init__ import VERSION, DEFAULTDEVICE, PORT, CALLSIGN
+from epicmon.epicmon import epicMon, epicData
 from datetime import datetime
-PORT = 50007
+#PORT = 50007
 USAGE = \
 """
-epicmon
+epicmonserverhttp
 """
 
 DESCRIPTION = \
 """
-epicmon - A utility to monitor and display status of a West Mountain Radio Epic Power Gate.
+epicmonserver - A utility to monitor and display status of a West Mountain Radio Epic Power Gate via HTTP.
 """
 
 EPILOG = \
@@ -41,34 +41,44 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        #print("Bite me world!\n\n{},      {}".format(self.path, self.requestline))
-        #self.wfile.write(b"Hello, World!")
-        if self.path == '/exit':
-            print('Server exiting... bye!')
-            exit()
-        elif self.path == '/bite':
-            print('Bite me!')
-        elif self.path == '/getstatus':
+        if (self.path == '/') or (self.path == '/getstatus'):
             #if args.deviceName:
             pgate = epicMon(DEFAULTDEVICE)
             if pgate:
-                gateStat = pgate.get_status(10)
+                gateStat = epicData(pgate.get_status())
                 self.ShowHTML(gateStat)
+                #gateStat.showValues()
+        elif self.path == '/exit':
+            print('Server exiting... bye!')
+            exit()
 
     def ShowHTML(self, dataList):
-        htdoc = b"""<!DOCTYPE html>
+        htdoc = """<!DOCTYPE html>
                     <html>
                     <body>
-                    <h1>N0SO Mobile Power Status</h1>
-                    <hr>"""
+                    <h1 align='center'>{}  Mobile Power Status</h1>
+                    <p align='center'>{}</p>
+                    <hr>""".format(CALLSIGN, datetime.now())
         #for l in dataList:
-        htdoc += "{}<br>\n".format(dataList[8]).encode('utf-8')
-        htdoc += "{}<br>\n".format(dataList[9]).encode('utf-8')
+        htdoc += '<p>{}<br>{}</p>'.format(dataList.deviceStg, dataList.configStg)
+        htdoc += """<p>Power Source Voltage: {}<br>
+                       Charge Status: {}<br>
+                       Battery Voltage: {}<br>
+                       Current: {}<br>
+                       Solar Volts: {}<br>
+                       Powergate Temperature: {}
+                 </p>""".format(dataList.psVolts,
+                                dataList.battState,
+                                dataList.battVolts,
+                                dataList.battAmps,
+                                dataList.solarVolts,
+                                dataList.pgateTemp)
+        htdoc += "<p>Raw Data:<br>{}<br>\n".format(dataList.rawStatus[8])
+        htdoc += "{}<br></p>\n".format(dataList.rawStatus[9])
 
-        htdoc += b"""</body>
+        htdoc += """</body>
                 </html>"""
-        self.wfile.write(htdoc)
-
+        self.wfile.write(htdoc.encode('utf-8'))
 
 def parseMyArgs():
     parser = argparse.ArgumentParser(\
@@ -77,10 +87,20 @@ def parseMyArgs():
                         action='version', 
                         version = VERSION)
 
+    parser.add_argument('-c', '--callSign',
+                                   default = CALLSIGN,
+            help="""Call sign used for HTML display.
+                    default is {}""".format(CALLSIGN))
+
     parser.add_argument('-d', '--deviceName',
                                    default = DEFAULTDEVICE,
             help="""Use deviceName as serial input device.
                     default is {}""".format(DEFAULTDEVICE))
+
+    parser.add_argument('-p', '--Port', type=int,
+                                   default = PORT,
+            help="""Use Port as network port for connection.
+                    default is {}""".format(PORT))
 
     parser.add_argument('-t', '--epicMonTerm',
                     default =  None,
@@ -106,5 +126,11 @@ def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    #args = parseMyArgs()
+    args = parseMyArgs()
+    if args.deviceName:
+        DEFAULTDEVICE = args.deviceName
+    if args.callSign:
+        CALLSIGN = args.callSign
+    if args.Port:
+        PORT = args.Port
     run()
