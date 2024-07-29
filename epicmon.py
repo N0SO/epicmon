@@ -12,6 +12,7 @@ class epicData():
             self.deviceStg = None
             self.configStg = None
             self.battState = None
+            self.inStateMinutes = None
             self.battVolts = None
             self.battAmps = None
             self.psVolts = None
@@ -25,6 +26,7 @@ class epicData():
         self.configStg = gdata[3]
         statParts = gdata[8]
         self.battState = statParts[0:10]
+        self.inStateMinutes = self.stripData(statParts[54:62])
         self.battVolts = self.stripData(statParts[21:31])
         self.battAmps = self.stripData(statParts[32:40])
         self.psVolts = self.stripData(statParts[11:20])
@@ -47,7 +49,8 @@ class epicData():
         print("""
 Device ID:{}
 Config string: {}
-Charge Status: {}
+Charge State: {}
+Time in current state: {} minutes
 Power Source Voltage: {} V
 Battery Voltage: {} V
 Current: {} A
@@ -59,6 +62,7 @@ Raw Data:
 {}""".format(self.deviceStg,
              self.configStg,
              self.battState,
+             self.inStateTime,
              self.psVolts,
              self.battVolts,
              self.battAmps,

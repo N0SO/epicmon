@@ -60,15 +60,18 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     <p align='center'>{}</p>
                     <hr>""".format(CALLSIGN, datetime.now())
         #for l in dataList:
-        htdoc += '<p>{}<br>{}</p>'.format(dataList.deviceStg, dataList.configStg)
+        htdoc += '<p>{}<br>{}</p>'.format(dataList.deviceStg, 
+                                          dataList.configStg)
         htdoc += """<p>Power Source Voltage: {} V<br>
-                       Charge Status: {}<br>
+                       Charge State: {}<br>
+                       Time in currents state: {} minutes<br>
                        Battery Voltage: {} V<br>
                        Current: {} A<br>
                        Solar Volts: {} V<br>
                        Powergate Temperature: {} F
                  </p>""".format(dataList.psVolts,
                                 dataList.battState,
+                                dataList.inStateTime,
                                 dataList.battVolts,
                                 dataList.battAmps,
                                 dataList.solarVolts,
