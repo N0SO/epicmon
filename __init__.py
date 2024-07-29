@@ -21,8 +21,11 @@ Update History:
 -          better and the powergate appears to put 
 -          them in the same columns each time. More
 -          testing needed.
+* Sun Jul 28 2024 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.5 - Added inStateTime to epicData to store the
+-          parameter "Time in current charge state".
 """
-VERSION = '0.0.4'
+VERSION = '0.0.5'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

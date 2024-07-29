@@ -12,7 +12,7 @@ class epicData():
             self.deviceStg = None
             self.configStg = None
             self.battState = None
-            self.inStateMinutes = None
+            self.inStateTime = None
             self.battVolts = None
             self.battAmps = None
             self.psVolts = None
@@ -26,7 +26,7 @@ class epicData():
         self.configStg = gdata[3]
         statParts = gdata[8]
         self.battState = statParts[0:10]
-        self.inStateMinutes = self.stripData(statParts[54:62])
+        self.inStateTime = self.stripData(statParts[54:62])
         self.battVolts = self.stripData(statParts[21:31])
         self.battAmps = self.stripData(statParts[32:40])
         self.psVolts = self.stripData(statParts[11:20])
