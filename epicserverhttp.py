@@ -55,10 +55,14 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def ShowHTML(self, dataList):
         htdoc = """<!DOCTYPE html>
                     <html>
+                    <head>
+                    <title>{}  Mobile Power Status</title>
+                    <meta http-equiv="refresh" content="60">
+                    </head>
                     <body>
                     <h1 align='center'>{}  Mobile Power Status</h1>
                     <p align='center'>{}</p>
-                    <hr>""".format(CALLSIGN, datetime.now())
+                    <hr>""".format(CALLSIGN, CALLSIGN, datetime.now())
         #for l in dataList:
         htdoc += '<p>{}<br>{}</p>'.format(dataList.deviceStg, 
                                           dataList.configStg)
