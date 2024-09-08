@@ -3,24 +3,9 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import os.path
 import sys
 import argparse
-
-whereami = os.path.split( os.path.realpath(__file__) )
-pathsplit = os.path.split(whereami[0])
-#print("here I am :", whereami, pathsplit)
-
-DEVMODPATH = [pathsplit[0],'/home/mike/Projects']
-#print('Using DEVMODPATH=',DEVMODPATH)
-#os.chdir(pathsplit[0])
-
-for mypath in DEVMODPATH:
-        if ( os.path.exists(mypath) and \
-          (os.path.isfile(mypath) == False) ):
-            sys.path.insert(0, mypath)
-
-from epicmon.__init__ import VERSION, DEFAULTDEVICE, PORT, CALLSIGN
-from epicmon.epicmon import epicMon, epicData
+from __init__ import VERSION, DEFAULTDEVICE, PORT, CALLSIGN
+from epicmon import epicMon, epicData
 from datetime import datetime
-#PORT = 50007
 USAGE = \
 """
 epicmonserverhttp

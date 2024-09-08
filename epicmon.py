@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from serial import Serial
-from epicmon.__init__ import VERSION
+from __init__ import VERSION
 from datetime import datetime
 
 

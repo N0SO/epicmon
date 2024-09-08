@@ -24,8 +24,20 @@ Update History:
 * Sun Jul 28 2024 Mike Heitmann, N0SO <n0so@arrl.net>
 - V0.0.5 - Added inStateTime to epicData to store the
 -          parameter "Time in current charge state".
+* Sun Sep 08 2024 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.6 - Added script activate to setup a 'virtual
+-          environment' to execute in. This should 
+-          make it easier to build a distribution 
+-          package in the future. It does require 
+-          running 'source bin/activate' to setup the
+-          virtual environment. It eliminates the code
+-          previously required to add the epicmon module
+-          to the python path. That code would need to
+-          be removed for a release. This technique was
+-          'borrowed' from the Meshtastic CLI project.
+-
 """
-VERSION = '0.0.5'
+VERSION = '0.0.6'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'
