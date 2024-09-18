@@ -38,6 +38,11 @@ def parseMyArgs():
                     action = 'store_true',
             help="""Display status in a more human readable format.""")
 
+    parser.add_argument('-r', '--noderedStatus',
+                    default =  False,
+                    action = 'store_true',
+            help="""Formatted status for display in Node Red.""")
+
     parser.add_argument('-t', '--epicMonTerm',
                     default =  None,
             help="""Display raw status N lines of output from 
@@ -65,4 +70,5 @@ if __name__ == '__main__':
             pgate.epicMonTerm(args.epicMonTerm)
         elif args.epicStatus:
             pgate.showStatus()
-
+        elif args.noderedStatus:
+            pgate.showNR()

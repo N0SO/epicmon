@@ -71,6 +71,23 @@ Raw Data:
              self.rawStatus[8],
              self.rawStatus[9]))
 
+    def displayNR(self):
+        print(\
+"""
+Charge State: {}
+Time in current state: {} minutes
+Power Source Voltage: {} V
+Battery Voltage: {} V
+Current: {} A
+Powergate Temperature: {} F
+""".format( self.battState,
+            self.inStateTime,
+            self.psVolts,
+            self.battVolts,
+            self.battAmps,
+            self.pgateTemp))
+
+
 
 class epicMon():
     def __init__(self, devicename = None):
@@ -127,4 +144,9 @@ class epicMon():
         gdata = epicData(self.get_status())
         gdata.showValues()
 
-
+    def showNR(self):
+        """
+        Show status for Node Red display.
+        """
+        gdata = epicData(self.get_status())
+        gdata.displayNR()
