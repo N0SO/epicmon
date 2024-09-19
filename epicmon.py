@@ -50,12 +50,12 @@ class epicData():
 Device ID:{}
 Config string: {}
 Charge State: {}
-Time in current state: {} minutes
-Power Source Voltage: {} V
-Battery Voltage: {} V
+Time in current state: {} Minutes
+Vehicle Battery Voltage: {} V
+Rack Battery Voltage: {} V
 Current: {} A
 Solar Voltage: {} V
-Powergate Temperature: {} F
+Rack Battery Temperature: {} F
 
 Raw Data:
 {}
@@ -76,10 +76,10 @@ Raw Data:
 """
 Charge State: {}
 Time in current state: {} minutes
-Power Source Voltage: {} V
+Vehicle Battery Voltage: {} V
 Battery Voltage: {} V
 Current: {} A
-Powergate Temperature: {} F
+Rack Battery Temperature: {} F
 """.format( self.battState,
             self.inStateTime,
             self.psVolts,
