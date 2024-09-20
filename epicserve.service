@@ -1,0 +1,13 @@
+[Unit]
+Description=Epic Pwrgate Status server
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=mike
+ExecStart=/usr/local/bin/epicserve
+
+[Install]
+WantedBy=multi-user.target
