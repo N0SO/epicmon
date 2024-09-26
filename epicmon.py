@@ -2,7 +2,7 @@
 from serial import Serial
 from __init__ import VERSION
 from datetime import datetime
-
+import re,  subprocess
 
 class epicData():
     def __init__(self, gdata=None):
@@ -87,8 +87,6 @@ Rack Battery Temperature: {} F
             self.battAmps,
             self.pgateTemp))
 
-
-
 class epicMon():
     def __init__(self, devicename = None):
         self.deviceName = devicename
@@ -150,3 +148,15 @@ class epicMon():
         """
         gdata = epicData(self.get_status())
         gdata.displayNR()
+
+    def getcpuTemp(self):
+        temp = None
+        err, msg = subprocess.getstatusoutput('vcgencmd measure_temp')
+        if not err:
+            m = re.search(r'-?\d\.?\d*', msg)   # a solution with a  regex
+            try:
+                temp = float(m.group())
+            except ValueError: # catch only error needed
+                pass
+        return temp, msg
+

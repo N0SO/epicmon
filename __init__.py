@@ -36,8 +36,12 @@ Update History:
 -          be removed for a release. This technique was
 -          'borrowed' from the Meshtastic CLI project.
 -
+* Thu Sep 26 2024 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.7 - Added  support for -c, --cpuTemp to display
+-          the CPU temperature of the host epicmon is
+-          running on.
 """
-VERSION = '0.0.6'
+VERSION = '0.0.7'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

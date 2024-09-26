@@ -28,6 +28,11 @@ def parseMyArgs():
                         action='version', 
                         version = VERSION)
 
+    parser.add_argument('-c', '--cpuTemp',
+                    default =  False,
+                    action = 'store_true',
+            help="""Read and display CPU temperature in celcius.""")
+
     parser.add_argument('-d', '--deviceName',
                                    default = DEFAULTDEVICE,
             help="""Use deviceName as serial input device.
@@ -63,7 +68,9 @@ if __name__ == '__main__':
     if args.deviceName:
         pgate = epicMon(args.deviceName)
     if pgate:
-        if args.epicVersion:
+        if args.cpuTemp:
+            print('Host CPU Temperature: {} \'C'.format(pgate.getcpuTemp()[0]))
+        elif args.epicVersion:
             for s in (pgate.getEpicVersion()):
                 print(s)
         elif args.epicMonTerm:
