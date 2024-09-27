@@ -40,8 +40,9 @@ Update History:
 - V0.0.7 - Added  support for -c, --cpuTemp to display
 -          the CPU temperature of the host epicmon is
 -          running on.
+- V0.0.8 - Added display of CPU temp to HTML output.
 """
-VERSION = '0.0.7'
+VERSION = '0.0.8'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

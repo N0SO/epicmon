@@ -31,6 +31,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             pgate = epicMon(DEFAULTDEVICE)
             if pgate:
                 gateStat = epicData(pgate.get_status())
+                gateStat.cpuTemp = pgate.getcpuTemp()[0]
                 self.ShowHTML(gateStat)
                 #gateStat.showValues()
         elif self.path == '/exit':
@@ -57,17 +58,20 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                        Rack Battery Voltage: {} V<br>
                        Current: {} A<br>
                        Solar Volts: {} V<br>
-                       Rack Battery Temperature: {} F
+                       Rack Battery Temperature: {} F<br>
+                       Host CPU Temperature: {} C
                  </p>""".format(dataList.psVolts,
                                 dataList.battState,
                                 dataList.inStateTime,
                                 dataList.battVolts,
                                 dataList.battAmps,
                                 dataList.solarVolts,
-                                dataList.pgateTemp)
+                                dataList.pgateTemp,
+                                dataList.cpuTemp)
+        """
         htdoc += "<p>Raw Data:<br>{}<br>\n".format(dataList.rawStatus[8])
         htdoc += "{}<br></p>\n".format(dataList.rawStatus[9])
-
+        """
         htdoc += """</body>
                 </html>"""
         self.wfile.write(htdoc.encode('utf-8'))

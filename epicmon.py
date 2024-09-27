@@ -19,9 +19,11 @@ class epicData():
             self.solarVolts = None
             self.pgateTemp = None
 
+        self.cpuTemp = None
         self.rawStatus =  gdata
 
     def parseGdata(self, gdata):
+        #print(gdata)
         self.deviceStg = gdata[2]
         self.configStg = gdata[3]
         statParts = gdata[8]
@@ -56,7 +58,7 @@ Rack Battery Voltage: {} V
 Current: {} A
 Solar Voltage: {} V
 Rack Battery Temperature: {} F
-
+Host CPU Temperature: {} C
 Raw Data:
 {}
 {}""".format(self.deviceStg,
@@ -68,6 +70,7 @@ Raw Data:
              self.battAmps,
              self.solarVolts,
              self.pgateTemp,
+             self.cpuTemp,
              self.rawStatus[8],
              self.rawStatus[9]))
 
@@ -80,12 +83,14 @@ Vehicle Battery Voltage: {} V
 Battery Voltage: {} V
 Current: {} A
 Rack Battery Temperature: {} F
+Host CPU Temperature: {} C
 """.format( self.battState,
             self.inStateTime,
             self.psVolts,
             self.battVolts,
             self.battAmps,
-            self.pgateTemp))
+            self.pgateTemp,
+            self.cpuTemp))
 
 class epicMon():
     def __init__(self, devicename = None):
@@ -127,6 +132,7 @@ class epicMon():
         self.serialCon.write(b'\n')
         for i in range(loops):
             retBuf.append(self.readPort())
+        #retBuf.append(self.getcpuTemp()[0])
         return retBuf
 
     def epicMonTerm(self, loops=None):
@@ -140,6 +146,7 @@ class epicMon():
 
     def showStatus(self):
         gdata = epicData(self.get_status())
+        gdata.cpuTemp = self.getcpuTemp()[0]
         gdata.showValues()
 
     def showNR(self):
@@ -147,6 +154,7 @@ class epicMon():
         Show status for Node Red display.
         """
         gdata = epicData(self.get_status())
+        gdata.cpuTemp = self.getcpuTemp()[0]
         gdata.displayNR()
 
     def getcpuTemp(self):
