@@ -7,7 +7,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=mike
-ExecStart=/usr/local/bin/epicserve
+ExecStart=/usr/local/bin/epicgate -s
 
 [Install]
 WantedBy=multi-user.target

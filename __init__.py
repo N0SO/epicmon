@@ -41,8 +41,12 @@ Update History:
 -          the CPU temperature of the host epicmon is
 -          running on.
 - V0.0.8 - Added display of CPU temp to HTML output.
+- V0.0.9 - combined all CLI functions intp script epicmon.
+-          To start the http server now requires running
+           epicmon -s or epicmon --httpServer. This removed
+	   all lot of redundant code.
 """
-VERSION = '0.0.8'
+VERSION = '0.0.9'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

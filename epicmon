@@ -2,7 +2,7 @@
 import os.path
 import sys
 import argparse
-from __init__ import VERSION, DEFAULTDEVICE
+from __init__ import VERSION, DEFAULTDEVICE, PORT, CALLSIGN
 from epicmon import epicMon
 from datetime import datetime
 
@@ -24,29 +24,42 @@ That is all!
 def parseMyArgs():
     parser = argparse.ArgumentParser(\
                     description = DESCRIPTION, usage = USAGE)
-    parser.add_argument('-v', '--version', 
-                        action='version', 
-                        version = VERSION)
 
-    parser.add_argument('-c', '--cpuTemp',
+    parser.add_argument('-C', '--cpuTemp',
                     default =  False,
                     action = 'store_true',
-            help="""Read and display CPU temperature in celcius.""")
+            help="""Read and display host CPU temperature in celcius.""")
+
+    parser.add_argument('-c', '--callSign',
+                                   default = CALLSIGN,
+            help="""Call sign used for HTML display.
+                    default is {}""".format(CALLSIGN))
 
     parser.add_argument('-d', '--deviceName',
                                    default = DEFAULTDEVICE,
             help="""Use deviceName as serial input device.
                     default is {}""".format(DEFAULTDEVICE))
 
-    parser.add_argument('-s', '--epicStatus',
+    parser.add_argument('-p', '--Port', type=int,
+                                   default = PORT,
+            help="""Use Port as http port for connection.
+                    default is {}""".format(PORT))
+
+    parser.add_argument('-q', '--epicStatus',
                     default =  False,
                     action = 'store_true',
-            help="""Display status in a more human readable format.""")
+            help="""Display powergate status in a more human readable format.""")
 
     parser.add_argument('-r', '--noderedStatus',
                     default =  False,
                     action = 'store_true',
             help="""Formatted status for display in Node Red.""")
+
+    parser.add_argument('-s', '--httpServer',
+                    default =  False,
+                    action = 'store_true',
+            help="""Start the http server on port specified by
+	            --Port. Default is {}""".format(PORT))
 
     parser.add_argument('-t', '--epicMonTerm',
                     default =  None,
@@ -55,6 +68,10 @@ def parseMyArgs():
                     of 0 will cause the stream to run indefinately.
                     """)
 
+    parser.add_argument('-v', '--version', 
+                        action='version', 
+                        version = VERSION)
+			
     parser.add_argument('-V', '--epicVersion',
                     default =  False,
                     action = 'store_true',
@@ -65,6 +82,9 @@ def parseMyArgs():
 
 if __name__ == '__main__':
     args = parseMyArgs()
+    if args.httpServer:
+        from epicserverhttp import SimpleHTTPRequestHandler, run
+        run()
     if args.deviceName:
         pgate = epicMon(args.deviceName)
     if pgate:
