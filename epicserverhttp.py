@@ -22,6 +22,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             exit()
 
     def ShowHTML(self, dataList):
+        now = datetime.now()
+        strtime = now.strftime("%Y-%m-%d %H:%M:%S")
         htdoc = """<!DOCTYPE html>
                     <html>
                     <head>
@@ -30,8 +32,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     </head>
                     <body>
                     <h1 align='center'>{}  Mobile Power Status</h1>
-                    <p align='center'>{}</p>
-                    <hr>""".format(CALLSIGN, CALLSIGN, datetime.now())
+                    <p align='center'>Updated: {}</p>
+                    <hr>""".format(CALLSIGN, CALLSIGN, strtime)
         #for l in dataList:
         htdoc += '<p>{}<br>{}</p>'.format(dataList.deviceStg, 
                                           dataList.configStg)
@@ -42,7 +44,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                        Current: {} A<br>
                        Solar Volts: {} V<br>
                        Rack Battery Temperature: {} F<br>
-                       Host CPU Temperature: {} C
+                       Host CPU Temperature: {} C<br>
                  </p>""".format(dataList.psVolts,
                                 dataList.battState,
                                 dataList.inStateTime,
