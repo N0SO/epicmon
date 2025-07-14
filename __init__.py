@@ -45,8 +45,11 @@ Update History:
 -          To start the http server now requires running
            epicmon -s or epicmon --httpServer. This removed
 	   all lot of redundant code.
+* Sun Jul 13 2025 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.10 - Updated HTML generated for use / display in a
+-           NodeRed  dashboard template element.
 """
-VERSION = '0.0.9'
+VERSION = '0.0.10'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

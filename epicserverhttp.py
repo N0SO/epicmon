@@ -35,17 +35,17 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     <p align='center'>Updated: {}</p>
                     <hr>""".format(CALLSIGN, CALLSIGN, strtime)
         #for l in dataList:
-        htdoc += '<p>{}<br>{}</p>'.format(dataList.deviceStg, 
+        htdoc += '<p>{}</p><p>{}</p>'.format(dataList.deviceStg, 
                                           dataList.configStg)
-        htdoc += """<p>Vehicle Battery Voltage: {} V<br>
-                       Charge State: {}<br>
-                       Time in current state: {} minutes<br>
-                       Rack Battery Voltage: {} V<br>
-                       Current: {} A<br>
-                       Solar Volts: {} V<br>
-                       Rack Battery Temperature: {} F<br>
-                       Host CPU Temperature: {} C<br>
-                 </p>""".format(dataList.psVolts,
+        htdoc += """<p><b>Vehicle Battery Voltage:</b> {} V</br>
+                      <b>Charge State:</b> {}</br>
+                      <b> Time in current state:</b> {} minutes</br>
+                      <b> Rack Battery Voltage:</b> {} V</br>
+                      <b> Current:</b> {} A</br>
+                      <b> Solar Volts:</b> {} V</br>
+                      <b> Rack Battery Temperature:</b> {} F</br>
+                      <b> Host CPU Temperature:</b> {} C</p>
+                       """.format(dataList.psVolts,
                                 dataList.battState,
                                 dataList.inStateTime,
                                 dataList.battVolts,
