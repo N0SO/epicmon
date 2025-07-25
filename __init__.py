@@ -48,9 +48,12 @@ Update History:
 * Sun Jul 13 2025 Mike Heitmann, N0SO <n0so@arrl.net>
 - V0.0.10 - Updated HTML generated for use / display in a
 -           NodeRed  dashboard template element.
+* Thu Jul 24 2025 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.11 - Adding code for restarting server, rebooting
+-           the system, shutting down the system
 """
 VERSION = '0.0.10'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'
-
+SLEEPTIME = 30 #Sleep 30 seconds before executing command
