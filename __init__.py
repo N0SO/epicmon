@@ -49,10 +49,12 @@ Update History:
 - V0.0.10 - Updated HTML generated for use / display in a
 -           NodeRed  dashboard template element.
 * Thu Jul 24 2025 Mike Heitmann, N0SO <n0so@arrl.net>
-- V0.0.11 - Adding code for restarting server, rebooting
+- V0.0.11 - Started adding code for restarting server, rebooting
 -           the system, shutting down the system
+* Thu Jul 25 2025 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.11 - Continue Adding code for restarting server, rebooting.
 """
-VERSION = '0.0.10'
+VERSION = '0.0.12'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

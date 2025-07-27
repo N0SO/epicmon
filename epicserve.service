@@ -6,7 +6,7 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
-User=mike
+User=root
 ExecStart=/usr/local/bin/epicgate -s
 
 [Install]
