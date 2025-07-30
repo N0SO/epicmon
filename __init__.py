@@ -52,9 +52,13 @@ Update History:
 - V0.0.11 - Started adding code for restarting server, rebooting
 -           the system, shutting down the system
 * Thu Jul 25 2025 Mike Heitmann, N0SO <n0so@arrl.net>
-- V0.0.11 - Continue Adding code for restarting server, rebooting.
+- V0.0.12 - Continue Adding code for restarting server, rebooting.
+* Thu Jul 29 2025 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.13 - Merged code for restarting server, rebooting.
+-           Also fixed a bug that caused battery temperature to be
+-           truncated to a single digit.
 """
-VERSION = '0.0.12'
+VERSION = '0.0.13'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'

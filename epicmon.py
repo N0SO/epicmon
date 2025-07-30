@@ -33,7 +33,7 @@ class epicData():
         self.battAmps = self.stripData(statParts[32:40])
         self.psVolts = self.stripData(statParts[11:20])
         self.solarVolts = self.stripData(statParts[41:53])
-        self.pgateTemp = self.stripData(statParts[63:71])
+        self.pgateTemp = self.stripData(statParts[63:73])
         return True
 
     def stripData(self, strData):
