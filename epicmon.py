@@ -30,7 +30,7 @@ class epicData():
             if len(partstg) >= 7 :
                 self.battState = partstg[0].strip()
                 self.inStateTime = self.stripData(partstg[4])
-                vparts = partstg[1].split(' ')
+                vparts = partstg[1].strip().split(' ')
                 #print(f'vparts = {vparts}')
                 if (len(vparts)>=2):
                    self.battVolts = self.stripData(vparts[1])

@@ -57,10 +57,12 @@ Update History:
 - V0.0.13 - Merged code for restarting server, rebooting.
 -           Also fixed a bug that caused battery temperature to be
 -           truncated to a single digit.
-* Fri Aug 09 2025 Mike Heitmann, N0SO <n0so@arrl.net>
+* Fri Aug 01 2025 Mike Heitmann, N0SO <n0so@arrl.net>
 - V0.0.14 - Changes for Issue#3 (data parsing errors).
+* Fri Aug 01 2025 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.15 - Fix parsing issue with vparts string.
 """
-VERSION = '0.0.14'
+VERSION = '0.0.15'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'
