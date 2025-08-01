@@ -46,15 +46,6 @@ class epicData():
         self.configStg = gdata[3]
         statParts = gdata[8]
         parts = self._parsegatestg(statParts)
-        """
-        self.battState = statParts[0:10]
-        self.inStateTime = self.stripData(statParts[54:62])
-        self.battVolts = self.stripData(statParts[21:31])
-        self.battAmps = self.stripData(statParts[32:40])
-        self.psVolts = self.stripData(statParts[11:20])
-        self.solarVolts = self.stripData(statParts[41:53])
-        self.pgateTemp = self.stripData(statParts[63:73])
-        """
         return True
 
     def stripData(self, strData):
