@@ -21,12 +21,32 @@ class epicData():
 
         self.cpuTemp = None
         self.rawStatus =  gdata
-
+ 
+    def _parsegatestg(self,gdata):
+        retdata = None
+        if ( (gdata != None) and (len(gdata) >0) ):
+            partstg = gdata.split('  ')
+            #print(f'string data = {gdata}\nstring parts = {partstg}')
+            if len(partstg) >= 7 :
+                self.battState = partstg[0].strip()
+                self.inStateTime = self.stripData(partstg[4])
+                vparts = partstg[1].split(' ')
+                #print(f'vparts = {vparts}')
+                if (len(vparts)>=2):
+                   self.battVolts = self.stripData(vparts[1])
+                   self.psVolts = self.stripData(vparts[0])
+                self.battAmps = self.stripData(partstg[2])
+                self.solarVolts = self.stripData(partstg[3])
+                self.pgateTemp = self.stripData(partstg[5])
+        return retdata
+        
     def parseGdata(self, gdata):
         #print(gdata)
         self.deviceStg = gdata[2]
         self.configStg = gdata[3]
         statParts = gdata[8]
+        parts = self._parsegatestg(statParts)
+        """
         self.battState = statParts[0:10]
         self.inStateTime = self.stripData(statParts[54:62])
         self.battVolts = self.stripData(statParts[21:31])
@@ -34,6 +54,7 @@ class epicData():
         self.psVolts = self.stripData(statParts[11:20])
         self.solarVolts = self.stripData(statParts[41:53])
         self.pgateTemp = self.stripData(statParts[63:73])
+        """
         return True
 
     def stripData(self, strData):
