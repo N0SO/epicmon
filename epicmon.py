@@ -25,16 +25,28 @@ class epicData():
     def _parsegatestg(self,gdata):
         retdata = None
         if ( (gdata != None) and (len(gdata) >0) ):
+            gdata = gdata.strip()
             partstg = gdata.split('  ')
-            #print(f'string data = {gdata}\nstring parts = {partstg}')
+            #print(f'string data = {gdata}\nstring parts = {partstg} len={len(partstg)}')
             if len(partstg) >= 7 :
+                """
+                They really goon up this string and make it hard to parse!
+                If the string length > 7 skip the [1] element.
+                """
+                if len(partstg) >=8 :
+                    fixedstg = []
+                    for i in range(len(partstg)):
+                        if i != 1:
+                            fixedstg.append(partstg[i])
+                    partstg = fixedstg
+                    #print (f'Fixed partstg = {partstg}')
                 self.battState = partstg[0].strip()
                 self.inStateTime = self.stripData(partstg[4])
                 vparts = partstg[1].strip().split(' ')
                 #print(f'vparts = {vparts}')
                 if (len(vparts)>=2):
-                   self.battVolts = self.stripData(vparts[1])
-                   self.psVolts = self.stripData(vparts[0])
+                   self.battVolts = self.stripData(vparts[2])
+                   self.psVolts = self.stripData(vparts[1])
                 self.battAmps = self.stripData(partstg[2])
                 self.solarVolts = self.stripData(partstg[3])
                 self.pgateTemp = self.stripData(partstg[5])

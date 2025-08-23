@@ -61,8 +61,10 @@ Update History:
 - V0.0.14 - Changes for Issue#3 (data parsing errors).
 * Fri Aug 01 2025 Mike Heitmann, N0SO <n0so@arrl.net>
 - V0.0.15 - Fix parsing issue with vparts string.
+* Wed Aug 13 2025 Mike Heitmann, N0SO <n0so@arrl.net>
+- V0.0.15 - Fix another parsing issue with vparts string.
 """
-VERSION = '0.0.15'
+VERSION = '0.0.16'
 PORT = 7373
 DEFAULTDEVICE = '/dev/ttyACM0'
 CALLSIGN = 'N0SO'
